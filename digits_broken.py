@@ -3,7 +3,7 @@
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
-import tkinter as tk
+# import tkinter as tk
 
 import numpy as np
 from PIL import Image

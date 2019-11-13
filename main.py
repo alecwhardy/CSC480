@@ -108,19 +108,19 @@ print("CNN Error: %.2f%%" % (100-scores[1]*100))
 # Test our network with a hand-drawn image
 img_path = 'notthree.png'
 
-img = image.load_img(img_path, target_size=(28, 28))
+# Changed color_mode to "grayscale." This changes the color channel dimension to 1
+img = image.load_img(img_path, color_mode="grayscale", target_size=(28, 28))
 img_tensor = image.img_to_array(img)
 img_tensor = np.expand_dims(img_tensor, axis=0)
 img_tensor /= 255.
 
-plt.imshow(img_tensor[0])
+# Changed cmap to "gray." This lets us present the image in the right color.
+plt.imshow(np.squeeze(img_tensor[0]), cmap="gray")
 plt.show()
 
 print(img_tensor.shape)
 
 # Prediction
-# TODO:  FIX IMAGE SHAPE DIMMENSIONS.  MAY NEED TO FLATTEN SOMEHOW
-# See https://stackoverflow.com/questions/49057149/expected-conv2d-1-input-to-have-shape-28-28-1-but-got-array-with-shape-1-2
 x = image.img_to_array(img)
 x = np.expand_dims(x, axis=0)
 images = np.vstack([x])
@@ -164,4 +164,3 @@ for layer_name, layer_activation in zip(layer_names, activations):  # Displays t
     plt.title(layer_name)
     plt.grid(False)
     plt.imshow(display_grid, aspect='auto', cmap='viridis')
-

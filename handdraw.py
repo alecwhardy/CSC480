@@ -34,11 +34,11 @@ def draw_circle(event,x,y,flags,param):
 
     elif event == cv2.EVENT_MOUSEMOVE:
         if mouse_down:
-            cv2.circle(img, (x, y), 5, (0, 0, 0), -1)
+            cv2.circle(img, (x, y), 7, (0, 0, 0), -1)
 
     elif event == cv2.EVENT_LBUTTONUP:
         mouse_down = False
-        cv2.circle(img, (x, y), 5, (0, 0, 0), -1)
+        cv2.circle(img, (x, y), 7, (0, 0, 0), -1)
 
 
 img = np.full((140, 140, 1), 255, np.uint8)
@@ -54,14 +54,14 @@ while True:
         break
 
     # Prediction magic here
-    img_cv = cv2.resize(img, (28, 28))
+    img_cv = cv2.resize(img, (28, 28), interpolation=cv2.INTER_AREA)
     img_tensor = image.img_to_array(img_cv)
     img_tensor = np.expand_dims(img_tensor, axis=0)
     img_tensor /= 255.
     cv2.imshow("resized", img_cv)
 
     classes = model.predict_classes(img_tensor, batch_size=10)
-    print("Predicted digit is:", classes[0])
+    print("Predicted digit is:", classes[0], end='\r')
     # End prediction magic
 
 cv2.destroyAllWindows()

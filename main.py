@@ -1,20 +1,26 @@
 # Reference:
 # https://towardsdatascience.com/visualizing-intermediate-activation-in-convolutional-neural-networks-with-keras-260b36d60d0
 
-import os
-
-import numpy as np
 from keras import models
 from keras.models import load_model
 from keras.preprocessing import image
 from matplotlib import pyplot as plt
+import PIL.ImageOps
+import numpy as np
+import os
+import sys
+os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/' # Get GraphVis to work properly
 
-from my_model import *
+try:
+    img = image.load_img(sys.argv[1], color_mode="grayscale", target_size=(28, 28))
+except:
+    if len(sys.argv) < 2:
+        print("Usage: python3 main.py [[image]]")
+    else:
+        print("Cannot open %s" % sys.argv[1])
+    exit()
 
-# Get GraphViz to work properly
-os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
-
-# Constants
+# constants
 GENERATE_NEW_MODEL = False
 NUM_EPOCHS = 10
 BATCH_SIZE = 200
@@ -28,8 +34,6 @@ else:
     model = load_model("model.h5")
 
 # Test our network with a hand-drawn image
-img_path = 'notthree.png'
-img = image.load_img(img_path, color_mode="grayscale", target_size=(28, 28))
 img_tensor = image.img_to_array(img)
 img_tensor = np.expand_dims(img_tensor, axis=0)
 img_tensor /= 255.
@@ -41,7 +45,8 @@ img_tensor /= 255.
 print(img_tensor.shape)
 
 # Prediction
-x = image.img_to_array(img)
+inverted_image = PIL.ImageOps.invert(img)
+x = image.img_to_array(inverted_image)
 x = np.expand_dims(x, axis=0)
 images = np.vstack([x])
 classes = model.predict_classes(images, batch_size=10)

@@ -8,6 +8,7 @@ from keras.models import load_model
 from keras.preprocessing import image
 
 from my_model import load_our_model
+from visualize_layers import visualize_cnn_layers
 
 model = load_our_model()
 
@@ -37,6 +38,9 @@ def process_and_predict(img):
     cv2.putText(predicted_digit_img, str(predicted_digit), (14, 34), 2, 1, 0)
     cv2.imshow("3. Predicted digit", predicted_digit_img)
 
+    # TODO: Connect the hand-drawing to the layer visualization, just for kicks!
+    # visualize_cnn_layers(model, img_cv)
+
 
 
 def handdraw():
@@ -47,8 +51,8 @@ def handdraw():
     canvas = np.full((140, 140, 1), 255, np.uint8)
 
     # mouse callback function
-    def draw_circle(event, x, y, flags, param):
-        nonlocal mouse_is_down
+    def on_mouse_event(event, x, y, flags, param):
+        nonlocal mouse_is_down, canvas
 
         if event == cv2.EVENT_LBUTTONDOWN:
             mouse_is_down = True
@@ -56,21 +60,28 @@ def handdraw():
 
         elif event == cv2.EVENT_MOUSEMOVE:
             if mouse_is_down:
+                # Draw a circle
                 cv2.circle(canvas, (x, y), 7, (0, 0, 0), -1)
 
         elif event == cv2.EVENT_LBUTTONUP:
             mouse_is_down = False
             cv2.circle(canvas, (x, y), 7, (0, 0, 0), -1)
 
-    # Create a new window and set up mouse events
-    cv2.namedWindow('1. Draw a digit here!')
-    cv2.setMouseCallback('1. Draw a digit here!', draw_circle)
-
-    # Render loop
-    while True:
         # Display the canvas
         cv2.imshow('1. Draw a digit here!', canvas)
 
+        # Make prediction
+        process_and_predict(canvas)
+
+    # Create a new window and set up mouse events
+    cv2.namedWindow('1. Draw a digit here!')
+    cv2.setMouseCallback('1. Draw a digit here!', on_mouse_event)
+
+    # Display the canvas
+    cv2.imshow('1. Draw a digit here!', canvas)
+
+    # Render loop
+    while True:
         k = cv2.waitKey(1) & 0xFF
         if k == ord('r'):
             # "r" key - Reset to blank white canvas
@@ -78,9 +89,6 @@ def handdraw():
         elif k == 27:
             # "Esc" key - quit
             break
-
-        # Make prediction
-        process_and_predict(canvas)
 
     cv2.destroyAllWindows()
 

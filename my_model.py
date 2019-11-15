@@ -12,11 +12,11 @@ from matplotlib import pyplot as plt
 
 def generate_model(num_epochs, batch_size):
     # load data from MNIST
-    (X_train, y_train), (X_test, y_test) = mnist.load_data()
+    (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
     # reshape to be [samples][width][height][channels], normalized
-    X_train = X_train.reshape((X_train.shape[0], 28, 28, 1)).astype('float32') / 255
-    X_test = X_test.reshape((X_test.shape[0], 28, 28, 1)).astype('float32') / 255
+    x_train = x_train.reshape((x_train.shape[0], 28, 28, 1)).astype('float32') / 255
+    x_test = x_test.reshape((x_test.shape[0], 28, 28, 1)).astype('float32') / 255
 
     # one hot encode outputs
     y_train = np_utils.to_categorical(y_train)
@@ -29,6 +29,7 @@ def generate_model(num_epochs, batch_size):
     # First CNN Layer
     model.add(Conv2D(30, (5, 5), input_shape=(28, 28, 1), activation='relu'))
     model.add(MaxPooling2D())
+    
     # Second CNN Layer
     model.add(Conv2D(15, (3, 3), activation='relu'))
     model.add(MaxPooling2D())
@@ -55,12 +56,12 @@ def generate_model(num_epochs, batch_size):
     plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
 
     # Fit the model
-    model_generation = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=num_epochs,
+    model_generation = model.fit(x_train, y_train, validation_data=(x_test, y_test), epochs=num_epochs,
                                  batch_size=batch_size, callbacks=[checkpoint])
     model.save("model.h5")
 
     # Final evaluation of the model
-    scores = model.evaluate(X_test, y_test, verbose=0)
+    scores = model.evaluate(x_test, y_test, verbose=0)
     print("CNN Error: %.2f%%" % (100 - scores[1] * 100))
     return model, model_generation
 

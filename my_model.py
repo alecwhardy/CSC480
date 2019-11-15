@@ -79,7 +79,8 @@ def train_model(model, epochs, batch_size):
         epochs=epochs,
         batch_size=batch_size,
         callbacks=[
-            # During training, generate a file that stores the state of the model
+            # During training, display intermediate progress
+            # Also, generate a file that stores the state of the model so we don't have to retrain each time
             ModelCheckpoint(
                 filepath=MODEL_FILEPATH,
                 monitor='val_accuracy',
@@ -89,7 +90,7 @@ def train_model(model, epochs, batch_size):
         ]
     )
 
-    # Final evaluation of the model
+    # Now that we've trained the model, calculate how well the training data fits the model
     scores = model.evaluate(x_test, y_test, verbose=0)
     print("CNN Error: %.2f%%" % (100 - scores[1] * 100))
 

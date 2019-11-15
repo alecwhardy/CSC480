@@ -23,19 +23,20 @@ else:
 # Takes an image and uses the model to predict the digit
 def resize_and_predict(img):
     # Resize
-    img = cv2.resize(img, (28, 28), interpolation=cv2.INTER_AREA)
-    
+    img_cv = cv2.resize(img, (28, 28), interpolation=cv2.INTER_AREA)
+
     # Display
-    cv2.imshow("After resizing", img)
-    
+    cv2.imshow("After resizing", img_cv)
+
     # Convert to tensor
-    img_tensor = image.img_to_array(img)
-    img_tensor = np.expand_dims(img_tensor, axis=0)
-    img_tensor /= 255.
+    img_cv = img_cv.astype('float32')
+    img_cv = img_cv.reshape(1, 28, 28, 1)
+    img_cv = 255-img_cv
+    img_cv /= 255
 
     # Let the model predict the digit
-    classes = model.predict_classes(img_tensor, batch_size=10)
-    
+    classes = model.predict_classes(img_cv, batch_size=10)
+
     print("Predicted digit is:", classes[0], end='\r')
 
 
@@ -50,7 +51,7 @@ def handdraw():
     # mouse callback function
     def draw_circle(event, x, y, flags, param):
         nonlocal mouse_is_down
-        
+
         if event == cv2.EVENT_LBUTTONDOWN:
             mouse_is_down = True
             ix, iy = x, y
@@ -62,7 +63,7 @@ def handdraw():
         elif event == cv2.EVENT_LBUTTONUP:
             mouse_is_down = False
             cv2.circle(canvas, (x, y), 7, (0, 0, 0), -1)
-    
+
     # Create a new window and setup the callback
     cv2.namedWindow('Draw a digit here!')
     cv2.setMouseCallback('Draw a digit here!', draw_circle)
@@ -79,7 +80,7 @@ def handdraw():
         elif k == 27:
             # "Esc" key - quit
             break
-        
+
         # Make prediction
         resize_and_predict(canvas)
 

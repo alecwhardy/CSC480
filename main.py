@@ -38,13 +38,18 @@ img_tensor /= 255.
 
 print(img_tensor.shape)
 
-# Make a prediction
+# Pre-process
 inverted_image = PIL.ImageOps.invert(img)
 x = keras.preprocessing.image.img_to_array(inverted_image)
 x = np.expand_dims(x, axis=0)
 images = np.vstack([x])
+
+# Make a prediction
 classes = model.predict_classes(images, batch_size=10)
-print("Predicted class is:", classes)
+predicted_digit = classes[0]
+
+# Output the prediction
+print("Predicted digit is:", predicted_digit)
 
 
 visualize_cnn_layers(model, img_tensor)

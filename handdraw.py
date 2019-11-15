@@ -22,12 +22,12 @@ else:
 
 
 # Takes an image and uses the model to predict the digit
-def resize_and_predict(img):
+def process_and_predict(img):
     # Resize
     img_cv = cv2.resize(img, (28, 28), interpolation=cv2.INTER_AREA)
 
-    # Display
-    cv2.imshow("After resizing", img_cv)
+    # Display the resized image
+    cv2.imshow("2. Resized image sent to model for prediction", img_cv)
 
     # Convert and normalize
     img_cv = img_cv.astype('float32')
@@ -44,8 +44,8 @@ def resize_and_predict(img):
     
     # Display the prediction on the GUI
     predicted_digit_img = np.full((50, 50, 1), 255, np.uint8)
-    cv2.putText(predicted_digit_img, str(predicted_digit), (15, 32), 2, 1, 0)
-    cv2.imshow("Predicted digit", predicted_digit_img)
+    cv2.putText(predicted_digit_img, str(predicted_digit), (14, 34), 2, 1, 0)
+    cv2.imshow("3. Predicted digit", predicted_digit_img)
 
 
 
@@ -73,13 +73,13 @@ def handdraw():
             cv2.circle(canvas, (x, y), 7, (0, 0, 0), -1)
 
     # Create a new window and set up mouse events
-    cv2.namedWindow('Draw a digit here!')
-    cv2.setMouseCallback('Draw a digit here!', draw_circle)
+    cv2.namedWindow('1. Draw a digit here!')
+    cv2.setMouseCallback('1. Draw a digit here!', draw_circle)
 
     # Render loop
     while True:
         # Display the canvas
-        cv2.imshow('Draw a digit here!', canvas)
+        cv2.imshow('1. Draw a digit here!', canvas)
 
         k = cv2.waitKey(1) & 0xFF
         if k == ord('r'):
@@ -90,7 +90,7 @@ def handdraw():
             break
 
         # Make prediction
-        resize_and_predict(canvas)
+        process_and_predict(canvas)
 
     cv2.destroyAllWindows()
 

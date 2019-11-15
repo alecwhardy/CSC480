@@ -1,15 +1,20 @@
 # Reference:
 # https://towardsdatascience.com/visualizing-intermediate-activation-in-convolutional-neural-networks-with-keras-260b36d60d0
-from my_model import *
+
+import os
+
+import numpy as np
 from keras import models
 from keras.models import load_model
 from keras.preprocessing import image
 from matplotlib import pyplot as plt
-import numpy as np
-import os
-os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/' # Get GraphVis to work properly
 
-# constants
+from my_model import *
+
+# Get GraphViz to work properly
+os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
+
+# Constants
 GENERATE_NEW_MODEL = False
 NUM_EPOCHS = 10
 BATCH_SIZE = 200

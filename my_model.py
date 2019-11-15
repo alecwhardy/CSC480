@@ -1,19 +1,15 @@
+from keras.callbacks import ModelCheckpoint
 from keras.datasets import mnist
+from keras.layers import Dense, Dropout, Flatten
+from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import Dropout
-from keras.layers import Flatten
-from keras.layers.convolutional import Conv2D
-from keras.layers.convolutional import MaxPooling2D
 from keras.utils import np_utils
 from keras.utils.vis_utils import plot_model
-from keras.callbacks import ModelCheckpoint
-
 from matplotlib import pyplot as plt
-
 
 # Reference
 # https://machinelearningmastery.com/handwritten-digit-recognition-using-convolutional-neural-networks-python-keras/
+
 def generate_model(num_epochs, batch_size):
     # load data from MNIST
     (X_train, y_train), (X_test, y_test) = mnist.load_data()

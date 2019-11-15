@@ -2,13 +2,14 @@
 # USE ESC KEY TO EXIT
 # USE 'r' KEY TO RESET DRAWING
 
-from my_model import *
+import cv2
+import numpy as np
 from keras.models import load_model
 from keras.preprocessing import image
-import numpy as np
-import cv2
 
-# constants
+from my_model import *
+
+# Constants
 GENERATE_NEW_MODEL = False
 NUM_EPOCHS = 10
 BATCH_SIZE = 200

@@ -28,7 +28,7 @@ def resize_and_predict(img):
     # Display
     cv2.imshow("After resizing", img_cv)
 
-    # Convert to tensor
+    # Convert and normalize
     img_cv = img_cv.astype('float32')
     img_cv = img_cv.reshape(1, 28, 28, 1)
     img_cv = 255-img_cv
@@ -36,8 +36,15 @@ def resize_and_predict(img):
 
     # Let the model predict the digit
     classes = model.predict_classes(img_cv, batch_size=10)
+    predicted_digit = classes[0]
 
-    print("Predicted digit is:", classes[0], end='\r')
+    # Output the prediction
+    print("Predicted digit is:", predicted_digit, end='\r')
+    
+    # Display the prediction on the GUI
+    predicted_digit_img = np.full((50, 50, 1), 255, np.uint8)
+    cv2.putText(predicted_digit_img, str(predicted_digit), (15, 32), 2, 1, 0)
+    cv2.imshow("Predicted digit", predicted_digit_img)
 
 
 
@@ -64,7 +71,7 @@ def handdraw():
             mouse_is_down = False
             cv2.circle(canvas, (x, y), 7, (0, 0, 0), -1)
 
-    # Create a new window and setup the callback
+    # Create a new window and set up mouse events
     cv2.namedWindow('Draw a digit here!')
     cv2.setMouseCallback('Draw a digit here!', draw_circle)
 

@@ -7,19 +7,9 @@ import numpy as np
 from keras.models import load_model
 from keras.preprocessing import image
 
-from my_model import *
+from my_model import load_our_model
 
-# Constants
-GENERATE_NEW_MODEL = False
-NUM_EPOCHS = 10
-BATCH_SIZE = 200
-
-if GENERATE_NEW_MODEL:
-    model, model_gen = generate_model(NUM_EPOCHS, BATCH_SIZE)
-    plot_fit_performance(model_gen)
-else:
-    model = load_model("model.h5")
-
+model = load_our_model()
 
 # Takes an image and uses the model to predict the digit
 def process_and_predict(img):

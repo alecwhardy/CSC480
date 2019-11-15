@@ -1,15 +1,17 @@
 # Reference:
 # https://towardsdatascience.com/visualizing-intermediate-activation-in-convolutional-neural-networks-with-keras-260b36d60d0
 
+import sys
+
+import numpy as np
+import PIL.ImageOps
 from keras import models
 from keras.models import load_model
 from keras.preprocessing import image
 from matplotlib import pyplot as plt
-import PIL.ImageOps
-import numpy as np
-import os
-import sys
-os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/' # Get GraphVis to work properly
+
+from my_model import load_our_model
+
 
 try:
     img = image.load_img(sys.argv[1], color_mode="grayscale", target_size=(28, 28))
@@ -20,18 +22,7 @@ except:
         print("Cannot open %s" % sys.argv[1])
     exit()
 
-# constants
-GENERATE_NEW_MODEL = False
-NUM_EPOCHS = 10
-BATCH_SIZE = 200
-
-IMAGES_PER_ROW = 8
-
-if GENERATE_NEW_MODEL:
-    model, model_gen = generate_model(NUM_EPOCHS, BATCH_SIZE)
-    plot_fit_performance(model_gen)
-else:
-    model = load_model("model.h5")
+model = load_our_model()
 
 # Test our network with a hand-drawn image
 img_tensor = image.img_to_array(img)
@@ -61,6 +52,7 @@ activation_model = models.Model(inputs=model.input, outputs=layer_outputs)
 activations = activation_model.predict(img_tensor)
 
 # Display a feature map for each layer in the neural network
+IMAGES_PER_ROW = 8
 for layer, activation in zip(model.layers[:4], activations):
     # print(activation.shape)
     n_features = activation.shape[-1]  # Number of features in the feature map

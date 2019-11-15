@@ -12,7 +12,10 @@ from matplotlib import pyplot as plt
 
 from my_model import load_our_model
 
+# Load the training model
+model = load_our_model()
 
+# Load image from command line
 try:
     img = image.load_img(sys.argv[1], color_mode="grayscale", target_size=(28, 28))
 except:
@@ -21,8 +24,6 @@ except:
     else:
         print("Cannot open %s" % sys.argv[1])
     exit()
-
-model = load_our_model()
 
 # Test our network with a hand-drawn image
 img_tensor = image.img_to_array(img)

@@ -19,7 +19,7 @@ def process_and_predict(img):
     # Display the resized image
     cv2.imshow("2. Resized image sent to model for prediction", img_cv)
 
-    # Convert and normalize
+    # Preprocess - invert and normalize
     img_cv = img_cv.astype('float32')
     img_cv = img_cv.reshape(1, 28, 28, 1)
     img_cv = 255-img_cv

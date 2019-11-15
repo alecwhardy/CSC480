@@ -3,11 +3,9 @@
 
 import sys
 
+import keras
 import numpy as np
 import PIL.ImageOps
-from keras import models
-from keras.models import load_model
-from keras.preprocessing import image
 from matplotlib import pyplot as plt
 
 from my_model import load_our_model
@@ -17,7 +15,7 @@ model = load_our_model()
 
 # Load image from command line
 try:
-    img = image.load_img(sys.argv[1], color_mode="grayscale", target_size=(28, 28))
+    img = keras.preprocessing.image.load_img(sys.argv[1], color_mode="grayscale", target_size=(28, 28))
 except:
     if len(sys.argv) < 2:
         print("Usage: python3 main.py [[image]]")
@@ -26,7 +24,7 @@ except:
     exit()
 
 # Test our network with a hand-drawn image
-img_tensor = image.img_to_array(img)
+img_tensor = keras.preprocessing.image.img_to_array(img)
 img_tensor = np.expand_dims(img_tensor, axis=0)
 img_tensor /= 255.
 
@@ -38,17 +36,17 @@ print(img_tensor.shape)
 
 # Prediction
 inverted_image = PIL.ImageOps.invert(img)
-x = image.img_to_array(inverted_image)
+x = keras.preprocessing.image.img_to_array(inverted_image)
 x = np.expand_dims(x, axis=0)
 images = np.vstack([x])
 classes = model.predict_classes(images, batch_size=10)
 print("Predicted class is:", classes)
 
-# Try to visualize the CNN models
+# Try to visualize the CNN keras.models
 # Extracts the outputs of the top 12 layers
 layer_outputs = [layer.output for layer in model.layers[:4]]
 # Creates a model that will return these outputs, given the model input
-activation_model = models.Model(inputs=model.input, outputs=layer_outputs)
+activation_model = keras.models.Model(inputs=model.input, outputs=layer_outputs)
 # Returns a list of five Numpy arrays: one array per layer activation
 activations = activation_model.predict(img_tensor)
 

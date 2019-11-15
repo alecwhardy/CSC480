@@ -10,7 +10,6 @@ from keras.engine.saving import load_model
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.models import Sequential, load_model
-from keras.preprocessing import image
 from keras.utils import np_utils
 from keras.utils.vis_utils import plot_model
 from matplotlib import pyplot as plt

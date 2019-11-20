@@ -12,6 +12,8 @@ from visualize_layers import visualize_cnn_layers
 
 model = load_our_model()
 
+CANVAS_SIZE = 280   # MAKE SURE THIS IS A MULTIPLE OF 28
+
 # Takes an image and uses the model to predict the digit
 def process_and_predict(img):
     # Resize
@@ -48,7 +50,7 @@ def handdraw():
     ix, iy = -1, -1
 
     # Start with blank white canvas
-    canvas = np.full((140, 140, 1), 255, np.uint8)
+    canvas = np.full((CANVAS_SIZE, CANVAS_SIZE, 1), 255, np.uint8)
 
     # mouse callback function
     def on_mouse_event(event, x, y, flags, param):
@@ -85,7 +87,7 @@ def handdraw():
         k = cv2.waitKey(1) & 0xFF
         if k == ord('r'):
             # "r" key - Reset to blank white canvas
-            canvas = np.full((140, 140, 1), 255, np.uint8)
+            canvas = np.full((CANVAS_SIZE, CANVAS_SIZE, 1), 255, np.uint8)
         elif k == 27:
             # "Esc" key - quit
             break

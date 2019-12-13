@@ -43,12 +43,12 @@ def visualize_cnn_layers(model, img):
                 channel_image = np.clip(channel_image, 0, 255).astype('uint8')
 
                 display_grid[col * size: (col + 1) * size, row * size: (row + 1) * size] = channel_image
-        
+
         # TODO: Connect the hand-drawing to the layer visualization, just for kicks!
         # Display using opencv
         # cv2.namedWindow(layer.name)
         # cv2.imshow(layer.name, display_grid)
-        
+
         # Display using pyplot
         scale = 1. / size
         plt.figure(figsize=(scale * display_grid.shape[1], scale * display_grid.shape[0]))
@@ -56,8 +56,8 @@ def visualize_cnn_layers(model, img):
         plt.grid(False)
         plt.imshow(display_grid, aspect='auto', cmap='viridis')
 
-    # plt.show()
-    
+    plt.show()
+
 
     # Print the activation values of the final dense layer (each one represents a possible digit from 0-9)
     print("Activation values of final dense layer:")

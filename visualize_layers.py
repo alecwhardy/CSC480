@@ -56,7 +56,7 @@ def visualize_cnn_layers(model, img):
         plt.grid(False)
         plt.imshow(display_grid, aspect='auto', cmap='viridis')
 
-    # plt.show()
+    plt.show()
     
 
     # Print the activation values of the final dense layer (each one represents a possible digit from 0-9)

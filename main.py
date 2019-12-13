@@ -52,4 +52,4 @@ predicted_digit = classes[0]
 print("Predicted digit is:", predicted_digit)
 
 
-visualize_cnn_layers(model, img_tensor)
+visualize_cnn_layers(model, x)

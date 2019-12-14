@@ -1,0 +1,42 @@
+Train on 60000 samples, validate on 10000 samples
+Epoch 1/10
+60000/60000 [==============================] - 14s 237us/step - loss: 0.3833 - accuracy: 0.8800 - val_loss: 0.0725 - val_accuracy: 0.9770
+
+Epoch 00001: val_accuracy improved from -inf to 0.97700, saving model to model-state.hdf5
+Epoch 2/10
+60000/60000 [==============================] - 15s 244us/step - loss: 0.0944 - accuracy: 0.9715 - val_loss: 0.0561 - val_accuracy: 0.9828
+
+Epoch 00002: val_accuracy improved from 0.97700 to 0.98280, saving model to model-state.hdf5
+Epoch 3/10
+60000/60000 [==============================] - 15s 246us/step - loss: 0.0678 - accuracy: 0.9786 - val_loss: 0.0379 - val_accuracy: 0.9883
+
+Epoch 00003: val_accuracy improved from 0.98280 to 0.98830, saving model to model-state.hdf5
+Epoch 4/10
+60000/60000 [==============================] - 14s 230us/step - loss: 0.0551 - accuracy: 0.9828 - val_loss: 0.0372 - val_accuracy: 0.9878
+
+Epoch 00004: val_accuracy did not improve from 0.98830
+Epoch 5/10
+60000/60000 [==============================] - 14s 240us/step - loss: 0.0478 - accuracy: 0.9848 - val_loss: 0.0318 - val_accuracy: 0.9889
+
+Epoch 00005: val_accuracy improved from 0.98830 to 0.98890, saving model to model-state.hdf5
+Epoch 6/10
+60000/60000 [==============================] - 15s 242us/step - loss: 0.0430 - accuracy: 0.9866 - val_loss: 0.0295 - val_accuracy: 0.9899
+
+Epoch 00006: val_accuracy improved from 0.98890 to 0.98990, saving model to model-state.hdf5
+Epoch 7/10
+60000/60000 [==============================] - 15s 244us/step - loss: 0.0362 - accuracy: 0.9881 - val_loss: 0.0277 - val_accuracy: 0.9914
+
+Epoch 00007: val_accuracy improved from 0.98990 to 0.99140, saving model to model-state.hdf5
+Epoch 8/10
+60000/60000 [==============================] - 14s 236us/step - loss: 0.0345 - accuracy: 0.9891 - val_loss: 0.0291 - val_accuracy: 0.9902
+
+Epoch 00008: val_accuracy did not improve from 0.99140
+Epoch 9/10
+60000/60000 [==============================] - 15s 243us/step - loss: 0.0303 - accuracy: 0.9905 - val_loss: 0.0302 - val_accuracy: 0.9900
+
+Epoch 00009: val_accuracy did not improve from 0.99140
+Epoch 10/10
+60000/60000 [==============================] - 15s 246us/step - loss: 0.0273 - accuracy: 0.9913 - val_loss: 0.0251 - val_accuracy: 0.9919
+
+Epoch 00010: val_accuracy improved from 0.99140 to 0.99190, saving model to model-state.hdf5
+CNN Error: 0.81%

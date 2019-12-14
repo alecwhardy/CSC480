@@ -52,13 +52,14 @@ def visualize_cnn_layers(model, img):
         # Display using pyplot
         scale = 1. / size
         plt.figure(figsize=(scale * display_grid.shape[1], scale * display_grid.shape[0]))
+        plt.axis('off')
         plt.title(layer.name)
         plt.grid(False)
         plt.imshow(display_grid, aspect='auto', cmap='viridis')
-
-    plt.show()
 
     # Print the activation values of the final dense layer (each one represents a possible digit from 0-9)
     print("Activation values of final dense layer:")
     for digit, value in enumerate(activations[-1][0]):
         print("%d: %f" % (digit, value))
+
+    plt.show()
